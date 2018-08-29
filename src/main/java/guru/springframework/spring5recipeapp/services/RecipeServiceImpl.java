@@ -29,4 +29,10 @@ public class RecipeServiceImpl implements RecipeService {
                 .forEachRemaining(recipes::add);
         return recipes;
     }
+
+    @Override
+    public Recipe findById(Long id) {
+        return recipeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Recipe Not Found!"));
+    }
 }

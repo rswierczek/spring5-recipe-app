@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
@@ -19,6 +20,8 @@ public class RecipeServiceImplTest {
 
     @Mock
     private RecipeRepository recipeRepository;
+
+    private final static Long RECIPE_ID_1 = 1L;
 
     @Before
     public void setUp() throws Exception {
@@ -40,4 +43,19 @@ public class RecipeServiceImplTest {
         verify(recipeRepository, times(1)).findAll();
     }
 
+    @Test
+    public void findById() throws Exception {
+
+        //Given
+        Recipe recipe = new Recipe();
+        recipe.setId(RECIPE_ID_1);
+        Optional<Recipe> optionalRecipe = Optional.of(recipe);
+
+        //when
+        when(recipeRepository.findById(eq(RECIPE_ID_1))).thenReturn(optionalRecipe);
+
+        //then
+        assertEquals(RECIPE_ID_1, recipeService.findById(RECIPE_ID_1).getId());
+
+    }
 }
