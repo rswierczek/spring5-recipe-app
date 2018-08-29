@@ -30,7 +30,7 @@ public class IndexController {
     public String index(Model model){
         log.debug("index page");
 
-        model.addAttribute("recipies", recipeService.getRecipes());
+        model.addAttribute("recipes", recipeService.getRecipes());
 
         Optional<Category> category = categoryRepository.findByDescription("American");
 
