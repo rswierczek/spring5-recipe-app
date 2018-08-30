@@ -32,6 +32,7 @@ public class RecipeServiceImplTest {
     RecipeCommandToRecipe recipeCommandToRecipe;
 
     private final static Long RECIPE_ID_1 = 1L;
+    private final static Long RECIPE_ID_2 = 2L;
 
     @Before
     public void setUp() throws Exception {
@@ -87,5 +88,18 @@ public class RecipeServiceImplTest {
         assertNotNull("Null recipe returned", commandById);
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, never()).findAll();
+    }
+
+    @Test
+    public void deletedById() throws Exception {
+        //given
+        Long idToDelete = RECIPE_ID_2;
+
+        //when
+        recipeService.deleteById(idToDelete);
+
+        //then
+        verify(recipeRepository, times(1)).deleteById(eq(RECIPE_ID_2));
+
     }
 }
